@@ -8,7 +8,7 @@ all: build push clean
 
 build: check-env
 	@echo Building ${REGISTRY_IMAGE}:${TAG}
-	@docker build --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" --label "org.opencontainers.image.version=$(TAG)" --build-arg TAG=${TAG} --tag ${REGISTRY_IMAGE}:${TAG} --pull .
+	@docker build --label "org.opencontainers.image.source=https://github.com/diztortion/docker-radicale" --label "org.opencontainers.image.created=$(shell date --rfc-3339=seconds)" --label "org.opencontainers.image.version=$(TAG)" --build-arg TAG=${TAG} --tag ${REGISTRY_IMAGE}:${TAG} --pull .
 	@docker images --filter label=name=drone-oss --filter label=stage=builder --quiet | xargs --no-run-if-empty docker rmi
 
 push: check-env
